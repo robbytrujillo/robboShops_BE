@@ -55,7 +55,25 @@ class MY_Model extends CI_Model {
     }
 
     public function join($table, $type = 'left') {
-        $this->db->join($table, "$this->$table.id_$table");
+        $this->db->join($table, "$this->$table.id_$table = $table.id", $type);
+        return $this;
+    }
+
+    public function orderBy($column, $order = 'asc') {
+        $this->db->order_by($column, $order);
+        return $this;
+    }
+
+    public function first() {
+        return $this->db->get($this->table)->row();
+    }
+
+    public function get() {
+        return $this->db->get($this->table)->result();
+    }
+
+    public function count() {
+        return $this->db->count_all_results($this->table);
     }
 }
 
