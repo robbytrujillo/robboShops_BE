@@ -23,11 +23,39 @@ class MY_Model extends CI_Model {
      */
     public function validate() {
         $this->load->library('form_validation');
-
-        $this->form_validation->set_error_delimeters('<small class="form-text text-danger">', '</small>');
+        $this->form_validation->set_error_delimeters(
+            '<small class="form-text text-danger">', '</small>'
+        );
+        
         $validationRules = $this->getValidationRules();
+
         $this->form_validation->set_rules($validationRules);
+
         return $this->form_validation->run();
+    }
+
+    public function select($columns) {
+        $this->db->select($columns);
+        return $this;
+    }
+
+    public function where($column, $condition) {
+        $this->db->where($column, $condition);
+        return $this;
+    }
+
+    public function like($column, $condition) {
+        $this->db->like($column, $condition);
+        return $this;
+    }
+
+    public function orLike($column, $condition) {
+        $this->db->or_like($column, $condition);
+        return $this;
+    }
+
+    public function join($table, $type = 'left') {
+        $this->db->join($table, "$this->$table.id_$table");
     }
 }
 
