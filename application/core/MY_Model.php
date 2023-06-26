@@ -27,6 +27,7 @@ class MY_Model extends CI_Model {
             '<small class="form-text text-danger">', '</small>'
         );
         
+        // $validationRules = $this->getValidationRules();
         $validationRules = $this->getValidationRules();
 
         $this->form_validation->set_rules($validationRules);
